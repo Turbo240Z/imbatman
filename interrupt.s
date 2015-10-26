@@ -55,8 +55,7 @@ irq_refreshCounter
     and #%11110000
 firstDigiLoad
     ora imbatman
-    sta __SID__+$18
-; Do math on imbatman val
+    sta __SID__+$18   ; SID Volume register
     clc
     lda firstDigiLoad+1
     adc #1
@@ -120,15 +119,14 @@ intDigiSound
     sta __SID__+$16   ; filter hi
     lda #%11110111
     sta __SID__+$17   ; filter voices+reso
-; From Algorithm
-lda #$ff
-sta $d406
-sta $d406+7
-sta $d496+14
-lda #$49
-sta $d404
-sta $d404+7
-sta $d404+14
 
-
+    ; Some levels mods from Algorithm to boost audio level
+    lda #$ff
+    sta $d406
+    sta $d406+7
+    sta $d496+14
+    lda #$49
+    sta $d404
+    sta $d404+7
+    sta $d404+14
     rts
