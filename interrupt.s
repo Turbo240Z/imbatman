@@ -19,7 +19,6 @@ initRefreshCounter
     ; 1,022,727.3Hz (NTSC)
     ;
     ; 1/8,000 = .000125 * 985248.6 = 123
-    ; Set interupt clock cycle count down number to 17,045
 
     lda #DIGI_AUX_SPEED
     sta $dc04 ; CIA2 timer A low byte
