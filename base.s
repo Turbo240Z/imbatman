@@ -24,6 +24,7 @@ BACKGROUND_CLR  .equ COLOR_BLUE
 BLOCK_CHAR      .equ 160 ; BLOCK
 DIGI_AUX_SPEED  .equ 123
 zpPtr1          .equ $ba
+zpPtr2          .equ $bc
 __SID__         .equ $D400
 
 .org $0801
@@ -31,28 +32,29 @@ __SID__         .equ $D400
 .byte $0C,$08,$0A,$00,$9E,' ','2','0','6','4',$00,$00,$00,$00,$00
 
 
-jsr intDigiSound
-jsr initRefreshCounter
+    jsr intDigiSound
+    jsr initRefreshCounter
 
-lda #COLOR_BLUE
-sta SCREEN_BORDER
-sta SCREEN_BG_COLOR
+    lda #COLOR_BLUE
+    sta SCREEN_BORDER
+    sta SCREEN_BG_COLOR
 
-jsr clearScreen
+    jsr clearScreen
 
 
-; switch to 38 columns
-lda $d016
-and #%11110111
-sta $d016
-; switch to 25 rows
-lda $d011
-and #%11110111
-sta $d011
-
+    ; switch to 38 columns
+    lda $d016
+    and #%11110111
+    sta $d016
+    ; switch to 25 rows
+    lda $d011
+    and #%11110111
+    sta $d011
+;    jsr loadInScreenColorSet
+    jsr clearScreen
 mainLoop
 ;    jsr clearScreen
-    jsr loadInScreenColorSet
+
     lda #COLOR_BLUE
     sta SCREEN_BORDER
     sta SCREEN_BG_COLOR
@@ -223,13 +225,16 @@ sta SCREEN_BG_COLOR
     jsr waitFrame
 
 ;    jsr restartDigiSound
-
+    jsr scrollScreenUp
+;waitMang
+;    jmp waitMang
     jmp mainLoop
 
 clearScreen ; void ()
     ldx #$00
 cs_loop
     lda clearingChar
+    lda #BLOCK_CHAR
     sta SCREENMEM, X
     sta SCREENMEM + $100, x
     sta SCREENMEM + $200, x

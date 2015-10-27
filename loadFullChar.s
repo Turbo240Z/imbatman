@@ -53,3 +53,62 @@ lizo1_loop
     inx
     bne lizo1_loop
     rts
+
+
+scrollScreenUp
+    ldx #0
+    lda #<COLORMEM
+    sta zpPtr1
+    clc
+    adc #40
+    sta zpPtr2
+    lda #>COLORMEM
+    sta zpPtr1+1
+    adc #0
+    sta zpPtr2+1
+    lda #<fsbat
+    sta picPtr
+    lda #>fsbat
+    sta picPtr+1
+ssu_loop1
+    ldy #0
+ssu_loop2
+    lda (zpPtr2), y ; Load from lower line
+    sta (zpPtr1), y ; store on line above
+    iny
+    cpy #40
+    bne ssu_loop2
+
+    clc
+    lda zpPtr1
+    adc #40
+    sta zpPtr1
+    lda zpPtr1+1
+    adc #0
+    sta zpPtr1+1
+    clc
+    lda zpPtr2
+    adc #40
+    sta zpPtr2
+    lda zpPtr2+1
+    adc #0
+    sta zpPtr2+1
+    inx
+    cpx #24
+    bne ssu_loop1
+    ; Load in value for line of picture
+    lda picPtr
+    sta zpPtr2
+    lda picPtr+1
+    sta zpPtr2+1
+    cpx #25
+    bne ssu_loop1
+    clc
+    lda picPtr
+    adc #40
+    sta picPtr
+    lda picPtr+1
+    adc #0
+    sta picPtr+1
+    rts
+picPtr  .byte 0, 0
