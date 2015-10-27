@@ -52,6 +52,43 @@ __SID__         .equ $D400
     sta $d011
 ;    jsr loadInScreenColorSet
     jsr clearScreen
+    ; Init where the image is located
+    lda #<fsbat
+    sta picPtr
+    lda #>fsbat
+    sta picPtr+1
+
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+
+
+bringInTheBat
+    jsr scrollScreenUp
+    inc scrollX
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+
+    lda scrollX
+    cmp #25
+    bne bringInTheBat
+    lda #1
+    sta playDigi
+    jmp mainLoop
+scrollX     .byte 0
+playDigi    .byte 0
+
 mainLoop
 ;    jsr clearScreen
 
@@ -66,7 +103,7 @@ mainLoop
     jsr waitFrame
     jsr waitFrame
     jsr waitFrame
-    jsr changeFullCharScreenBatFaceToOpen
+;    jsr changeFullCharScreenBatFaceToOpen
 
     jsr waitFrame
     jsr waitFrame
@@ -76,7 +113,7 @@ mainLoop
     jsr waitFrame
     jsr waitFrame
     jsr waitFrame
-    jsr changeFullCharScreenBatFaceToClosed
+;    jsr changeFullCharScreenBatFaceToClosed
 
 
     jsr waitFrame
@@ -139,15 +176,15 @@ mainLoop
 
     jsr waitFrame
     jsr waitFrame
-    jsr changeFullCharScreenBatFaceToOpen
+;    jsr changeFullCharScreenBatFaceToOpen
     lda $d011
     and #%11111000
     ora #%00000111
     sta $d011
 
-lda #COLOR_L_BLUE
-sta SCREEN_BORDER
-sta SCREEN_BG_COLOR
+;lda #COLOR_L_BLUE
+;sta SCREEN_BORDER
+;sta SCREEN_BG_COLOR
 
     jsr waitFrame
     jsr waitFrame
@@ -162,10 +199,10 @@ sta SCREEN_BG_COLOR
     jsr waitFrame
     jsr waitFrame
     jsr waitFrame
-    jsr changeFullCharScreenBatFaceToClosed
-lda #COLOR_CYAN
-sta SCREEN_BORDER
-sta SCREEN_BG_COLOR
+;    jsr changeFullCharScreenBatFaceToClosed
+;lda #COLOR_CYAN
+;sta SCREEN_BORDER
+;sta SCREEN_BG_COLOR
 
     jsr waitFrame
     jsr waitFrame
@@ -225,9 +262,6 @@ sta SCREEN_BG_COLOR
     jsr waitFrame
 
 ;    jsr restartDigiSound
-    jsr scrollScreenUp
-;waitMang
-;    jmp waitMang
     jmp mainLoop
 
 clearScreen ; void ()
@@ -239,6 +273,11 @@ cs_loop
     sta SCREENMEM + $100, x
     sta SCREENMEM + $200, x
     sta SCREENMEM + $300, x
+    lda #COLOR_BLUE
+    sta COLORMEM, x
+    sta COLORMEM + $100, x
+    sta COLORMEM + $200, x
+    sta COLORMEM + $300, x
     inx
     bne cs_loop
     rts

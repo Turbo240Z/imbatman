@@ -49,7 +49,9 @@ irq_refreshCounter
     pha        ;store register X in stack
     tya
     pha        ;store register Y in stack
-    inc SCREEN_BORDER
+    lda playDigi
+    beq notPlayingNow
+;    inc SCREEN_BORDER
     ; do something
     lda __SID__
     and #%11110000
@@ -72,12 +74,15 @@ firstDigiLoad
     cmp #>imbatman_end
     bne notFinished
     ; Reset audio to start
+    lda #0
+    sta playDigi
     lda #<imbatman
     sta firstDigiLoad+1
     lda #>imbatman
     sta firstDigiLoad+2
 notFinished
-    dec SCREEN_BORDER
+;    dec SCREEN_BORDER
+notPlayingNow
     lda $dc0d ; ACK/read what event occurred
     pla
     tay
