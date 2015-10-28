@@ -4,4 +4,4 @@ all:
 	php tools/convertBitmapToCharMap.php -t batzoom1 -f assets/batmanZoom1.raw >> combined.s
 	php tools/8to4bitAudioConvert.php -f assets/imbatman.raw -t imbatman >> combined.s
 	mac2c64 -r combined.s
-	mv combined.rw imbatman.prg
+	tools/exomizer sfx 0x0C01 combined.rw -o imbatman.prg
