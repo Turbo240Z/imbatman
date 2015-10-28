@@ -22,7 +22,6 @@ initRefreshCounter
 
     lda #DIGI_AUX_SPEED
     sta $dc04 ; CIA2 timer A low byte
-    ;lda #>DIGI_AUX_SPEED
     lda #0
     sta $dc05 ; CIA2 timer A high byte
 
@@ -53,7 +52,7 @@ irq_refreshCounter
     beq notPlayingNow
 ;    inc SCREEN_BORDER
     ; do something
-    lda __SID__
+    lda __SID__+$18
     and #%11110000
 firstDigiLoad
     ora imbatman
@@ -76,6 +75,7 @@ firstDigiLoad
     ; Reset audio to start
     lda #0
     sta playDigi
+
     lda #<imbatman
     sta firstDigiLoad+1
     lda #>imbatman
@@ -135,3 +135,4 @@ intDigiSound
     sta $d404+7
     sta $d404+14
     rts
+
