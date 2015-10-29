@@ -3,15 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict>
-		<key>imbatman.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
+	<dict/>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>EA26BAE81BE0052D000DCA36</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>EAA112FC1BDADBBD005459C0</key>
 		<dict>
 			<key>primary</key>
