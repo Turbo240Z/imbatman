@@ -51,12 +51,13 @@ irq_refreshCounter
     lda playDigi
     beq notPlayingNow
 ;    inc SCREEN_BORDER
-    ; do something
-    lda __SID__+$18
-    and #%11110000
 firstDigiLoad
-    ora imbatman
-    sta __SID__+$18   ; SID Volume register
+    lda imbatman
+    sta tmpSnd
+    lda lowerSndNib
+    beq playUpperNib
+playLowerNib
+    ; increment sound pointer
     clc
     lda firstDigiLoad+1
     adc #1
@@ -65,7 +66,23 @@ firstDigiLoad
     adc #0
     sta firstDigiLoad+2
 
+    dec lowerSndNib ; = 0
+    lda tmpSnd
+    and #$F0
+    lsr
+    lsr
+    lsr
+    lsr
+    jmp sndMaskComplete
+playUpperNib
+    inc lowerSndNib ; = 1
+    lda tmpSnd
+    and #$0F
+sndMaskComplete
+    ora #$F0
+    sta __SID__+$18   ; SID Volume register
 
+    ; check to see if we've finished
     lda firstDigiLoad+1
     cmp #<imbatman_end
     bne notFinished
@@ -90,6 +107,8 @@ notPlayingNow
     tax
     pla
     rti          ; return from interrupt
+lowerSndNib     .byte 0
+tmpSnd          .byte 0
 
 
 restartDigiSound
