@@ -35,7 +35,8 @@ COLOR_L_GREY    .equ $0f
 BACKGROUND_CHAR .equ ' '
 BACKGROUND_CLR  .equ COLOR_BLUE
 BLOCK_CHAR      .equ 160 ; BLOCK
-DIGI_AUX_SPEED  .equ 123
+;DIGI_AUX_SPEED  .equ 123
+DIGI_AUX_SPEED  .equ 40
 zpPtr1          .equ $ba
 zpPtr2          .equ $bc
 __SID__         .equ $D400
