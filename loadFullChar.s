@@ -57,6 +57,7 @@ lizo1_loop
 
 scrollScreenUp
     ldx #0
+scrollScreenUp1
     lda #<COLORMEM
     sta zpPtr1
     clc
@@ -67,6 +68,7 @@ scrollScreenUp
     sta zpPtr1+1
     adc #0
     sta zpPtr2+1
+scrollScreenUp2
 
 ssu_loop1
     ldy #0
