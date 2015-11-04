@@ -29,9 +29,6 @@ irq_vblankHandler
     tya
     pha        ;store register Y in stack
     inc screenDraws
-    inc SCREEN_BORDER
-
-    dec SCREEN_BORDER
     asl $d019    ; ACK interrupt (to re-enable it)
     pla
     tay

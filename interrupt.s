@@ -1,19 +1,8 @@
-initRefreshCounter
+initDigiPlayer
     sei       ; turn off interrupts
     lda $dc0d ; ack cia1
     lda $dd0d ; ack cia2
-
-    lda #%10000101 ; enable cia 1 irq by timer a, bit 2 for RTC interupt trigger
-    sta $dc0d
-
-    lda #%01111111 ; Disable CIA2 through clearing
-    sta $dd0d
-
-    ;lda #$00   ;this is how to tell the VICII to generate a raster interrupt
-    ;sta $d01a
-    asl $d019  ; Ack any current events set by VICII
-    ;lda #RASTER_TO_COUNT_AT     ; line to trigger interrupt
-    ;sta $d012
+    asl $d019 ; ack any current events set by VICII
 
     ;   985,248.6Hz (PAL)
     ; 1,022,727.3Hz (NTSC)
@@ -21,12 +10,19 @@ initRefreshCounter
     ; 1/8,000 = .000125 * 985248.6 = 123
 
     lda #DIGI_AUX_SPEED
-    sta $dc04 ; CIA2 timer A low byte
+    lda #$FF
+    sta $dc04 ; CIA1 timer A low byte
     lda #0
-    sta $dc05 ; CIA2 timer A high byte
+    lda #$FF
+    sta $dc05 ; CIA1 timer A high byte
 
-    lda #%00010001 ; Start timer a, restart when counted down, load start value into timer, set timer to 50hz for RTC
+    lda #%10000001 ; Enable  CIA1 irq by timer A
+    sta $dc0d
+    lda #%01111111 ; Disable CIA2 through clearing
+    sta $dd0d
+    lda #%00010001 ; Start timer a, restart when counted down, load start value into timer
     sta $dc0e
+
 
     ; Configure ROM/RAM
     lda #$35   ;we turn off the BASIC and KERNAL rom here
@@ -47,10 +43,7 @@ irq_refreshCounter
     pha        ;store register X in stack
     tya
     pha        ;store register Y in stack
-    ;inc SCREEN_BORDER
-    lda playDigi
-    beq notPlayingNow
-
+;    inc SCREEN_BORDER
 firstDigiLoad
     lda imbatman
     sta __SID__+$18
@@ -69,8 +62,6 @@ firstDigiLoad
     lda firstDigiLoad+2
     cmp #>imbatman_end
     bne notFinished
-    lda #0
-    sta playDigi
     jsr initVblankIRQ
     ; Reset audio to start
     lda #<imbatman
@@ -78,16 +69,16 @@ firstDigiLoad
     lda #>imbatman
     sta firstDigiLoad+2
 notFinished
-    ;dec SCREEN_BORDER
-notPlayingNow
+
     lda $dc0d ; ACK/read what event occurred
+;    dec SCREEN_BORDER
     pla
     tay
     pla
     tax
     pla
     rti          ; return from interrupt
-playDigi        .byte 0
+
 
 
 restartDigiSound

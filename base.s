@@ -35,7 +35,7 @@ COLOR_L_GREY    .equ $0f
 BACKGROUND_CHAR .equ ' '
 BACKGROUND_CLR  .equ COLOR_BLUE
 BLOCK_CHAR      .equ 160 ; BLOCK
-DIGI_AUX_SPEED  .equ 123
+DIGI_AUX_SPEED  .equ 255
 RASTER_TO_COUNT_AT  .equ 0
 zpPtr1          .equ $ba
 zpPtr2          .equ $bc
@@ -75,7 +75,7 @@ veryStart
 
     ldx #0
 waitWithBlankScreen
-    jsr waitFrame
+    jsr waitFrames
     inx
     cpx #INITIAL_WAIT
     bne waitWithBlankScreen
@@ -88,171 +88,167 @@ bringInTheBat
     cmp #25
     bne bringInTheBat
     ; Bat is in position
-    lda #1
-    sta playDigi
-    jsr initRefreshCounter
-    jmp mainLoop
-
+    jsr initDigiPlayer
 
 mainLoop
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
     jsr changeFullCharScreenBatFaceToHalfOpen
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
     jsr changeFullCharScreenBatFaceToClosed
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
     jsr changeFullCharScreenBatFaceToHalfOpen
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
 
     lda $d011
     and #%11111000
     ora #%00000001 ; 1
     sta $d011
 
-    jsr waitFrames
-    jsr waitFrames
+    jsr waitFrame
+    jsr waitFrame
     inc $d011 ; 2
     jsr changeFullCharScreenBatFaceToClosed
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
-    jsr waitFrames
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
+    jsr waitFrame
     inc $d011 ; 3
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 4
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 5
-    jsr waitFrames
+    jsr waitFrame
     jsr changeFullCharScreenBatFaceToOpen
     inc $d011 ; 6
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 7
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 6
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 5
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 4
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 3
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 2
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 1
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 0
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 1
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 2
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 3
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 4
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 5
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 6
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 5
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 4
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 3
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 2
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 3
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 4
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 5
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 6
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 7
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 6
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 5
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 4
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 3
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 2
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 1
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 0
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 1
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 2
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 3
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 4
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 5
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 6
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 7
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 6
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 5
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 4
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 3
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 2
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 1
-    jsr waitFrames
+    jsr waitFrame
     dec $d011 ; 0
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 1
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 2
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 3
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 4
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 5
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 6
-    jsr waitFrames
+    jsr waitFrame
     inc $d011 ; 7
     jsr waitFrames
     jsr changeFullCharScreenBatFaceToClosed
@@ -288,7 +284,7 @@ changeFullCharScreenBatFaceToClosed
 
 waitFrame
     lda $d012
-    cmp #0
+    cmp #100
     beq waitFrame
 waitStep2   lda $d012
     cmp #0
@@ -300,6 +296,6 @@ waitFrames
     sta screenDraws
 wf_loop
     lda screenDraws
-    cmp #1
+    cmp #255
     bcs wf_loop ; Greater than
     rts

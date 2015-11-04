@@ -6,3 +6,4 @@ all:
 	mac2c64 -r combined.s
 	tools/exomizer sfx 0x0C01 combined.rw -o imbatman.prg
 	tools/createLabels.sh combined.s
+#	open -a x64 --args $(shell pwd)/imbatman.prg

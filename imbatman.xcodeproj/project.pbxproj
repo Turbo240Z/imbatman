@@ -40,12 +40,33 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		EA7CCE8D1BE9E25700E741C8 /* imbatman */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = EA7CCE901BE9E25700E741C8 /* Build configuration list for PBXLegacyTarget "imbatman" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = imbatman;
+			passBuildSettingsInEnvironment = 1;
+			productName = imbatman;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXProject section */
 		EAA112F51BDADBBD005459C0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = ls;
+				TargetAttributes = {
+					EA7CCE8D1BE9E25700E741C8 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+				};
 			};
 			buildConfigurationList = EAA112F81BDADBBD005459C0 /* Build configuration list for PBXProject "imbatman" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -59,11 +80,35 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				EA7CCE8D1BE9E25700E741C8 /* imbatman */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
+		EA7CCE8E1BE9E25700E741C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EA7CCE8F1BE9E25700E741C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		EAA113021BDADBBD005459C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -144,6 +189,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		EA7CCE901BE9E25700E741C8 /* Build configuration list for PBXLegacyTarget "imbatman" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA7CCE8E1BE9E25700E741C8 /* Debug */,
+				EA7CCE8F1BE9E25700E741C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		EAA112F81BDADBBD005459C0 /* Build configuration list for PBXProject "imbatman" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
