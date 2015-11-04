@@ -123,4 +123,5 @@ linl_loop
     adc #0
     sta picPtr+1
     rts
-picPtr  .byte 0, 0
+picPtr      .byte 0, 0
+scrollX     .byte 0 ; how many lines have we scrolled up the bat image

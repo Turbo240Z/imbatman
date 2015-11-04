@@ -11,7 +11,7 @@ initRefreshCounter
 
     ;lda #$00   ;this is how to tell the VICII to generate a raster interrupt
     ;sta $d01a
-    ;asl $d019  ; Ack any current events set by VICII
+    asl $d019  ; Ack any current events set by VICII
     ;lda #RASTER_TO_COUNT_AT     ; line to trigger interrupt
     ;sta $d012
 
@@ -41,22 +41,19 @@ initRefreshCounter
     rts
 
 
-
 irq_refreshCounter
     pha        ;store register A in stack
     txa
     pha        ;store register X in stack
     tya
     pha        ;store register Y in stack
+    ;inc SCREEN_BORDER
     lda playDigi
     beq notPlayingNow
-;    inc SCREEN_BORDER
+
 firstDigiLoad
     lda imbatman
-    sta tmpSnd
-    lda lowerSndNib
-    beq playUpperNib
-playLowerNib
+    sta __SID__+$18
     ; increment sound pointer
     clc
     lda firstDigiLoad+1
@@ -65,23 +62,6 @@ playLowerNib
     lda firstDigiLoad+2
     adc #0
     sta firstDigiLoad+2
-
-    dec lowerSndNib ; = 0
-    lda tmpSnd
-    and #$F0
-    lsr
-    lsr
-    lsr
-    lsr
-    jmp sndMaskComplete
-playUpperNib
-    inc lowerSndNib ; = 1
-    lda tmpSnd
-    and #$0F
-sndMaskComplete
-    ora #$F0
-    sta __SID__+$18   ; SID Volume register
-
     ; check to see if we've finished
     lda firstDigiLoad+1
     cmp #<imbatman_end
@@ -89,16 +69,16 @@ sndMaskComplete
     lda firstDigiLoad+2
     cmp #>imbatman_end
     bne notFinished
-    ; Reset audio to start
     lda #0
     sta playDigi
-
+    jsr initVblankIRQ
+    ; Reset audio to start
     lda #<imbatman
     sta firstDigiLoad+1
     lda #>imbatman
     sta firstDigiLoad+2
 notFinished
-;    dec SCREEN_BORDER
+    ;dec SCREEN_BORDER
 notPlayingNow
     lda $dc0d ; ACK/read what event occurred
     pla
@@ -107,8 +87,7 @@ notPlayingNow
     tax
     pla
     rti          ; return from interrupt
-lowerSndNib     .byte 0
-tmpSnd          .byte 0
+playDigi        .byte 0
 
 
 restartDigiSound

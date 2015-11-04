@@ -25,7 +25,7 @@
                 }
             }
         }else{
-            echo $val[1];
+            echo 240 | (int)$val[1];
             if($i+1 != filesize($options['f'])){
                 echo ", ";
             }

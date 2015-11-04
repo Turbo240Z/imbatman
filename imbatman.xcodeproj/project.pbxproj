@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		EA01ACC31BE98482009BC7C1 /* vblank.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = vblank.s; sourceTree = "<group>"; };
+		EA01ACC41BE98C73009BC7C1 /* clearScreen.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = clearScreen.s; sourceTree = "<group>"; };
 		EAA113071BDADBED005459C0 /* loadFullChar.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = loadFullChar.s; sourceTree = "<group>"; };
 		EAA113081BDADD4A005459C0 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		EAA113091BDADD4A005459C0 /* tools */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tools; sourceTree = "<group>"; };
@@ -19,7 +21,9 @@
 			isa = PBXGroup;
 			children = (
 				EAA1130A1BDADF5E005459C0 /* base.s */,
+				EA01ACC41BE98C73009BC7C1 /* clearScreen.s */,
 				EAA1130B1BDDDCDD005459C0 /* interrupt.s */,
+				EA01ACC31BE98482009BC7C1 /* vblank.s */,
 				EAA113071BDADBED005459C0 /* loadFullChar.s */,
 				EAA113081BDADD4A005459C0 /* assets */,
 				EAA113091BDADD4A005459C0 /* tools */,
